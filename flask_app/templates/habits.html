@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <title>Habits</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/habits">Habits</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/habits">All Habits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/habits/new">Add a Habit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/users/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Welcome, {{ user.first_name }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <table class="table">
+                    <thead>
+                        <th>NAME</th>
+                        <th>PAINTOR</th>
+                        <th>ACTIONS</th>
+                    </thead>
+                    <tbody>
+                        {% for habit in habits %}
+                        <tr>
+                            <td>{{ habit.title }}</td>
+                            <td> by {{ habit.creator.first_name }}</td>
+                            <td>
+                                    <a class="btn btn-sm btn-primary" href="/habits/{{ habit.id }}">VIEW</a>
+                                    {% if habit.creator.id == session.user_id %}
+                                    <a class="btn btn-sm btn-warning" href="/habits/{{ habit.id }}/edit">EDIT</a>
+                                    <a class="btn btn-sm btn-danger" href="/habits/{{ habit.id }}/delete">DELETE</a>
+                                    {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
